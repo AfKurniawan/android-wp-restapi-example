@@ -5,9 +5,9 @@ public class Post {
     private String date;
     private String slug;
     private String type;
-    private Object title;
-    private Object content;
-    private Object excerpt;
+    private Post_Rendered title;
+    private Post_Rendered content;
+    private Post_Rendered excerpt;
     private int author;
     private int[] categories;
     private int[] tags;
@@ -40,32 +40,32 @@ public class Post {
         return type;
     }
 
-    public Object getTitle() {
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Post_Rendered getTitle() {
         return title;
     }
 
-    public void setTitle(Object title) {
+    public void setTitle(Post_Rendered title) {
         this.title = title;
     }
 
-    public Object getContent() {
+    public Post_Rendered getContent() {
         return content;
     }
 
-    public void setContent(Object content) {
+    public void setContent(Post_Rendered content) {
         this.content = content;
     }
 
-    public Object getExcerpt() {
+    public Post_Rendered getExcerpt() {
         return excerpt;
     }
 
-    public void setExcerpt(Object excerpt) {
+    public void setExcerpt(Post_Rendered excerpt) {
         this.excerpt = excerpt;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public int getAuthor() {
@@ -90,5 +90,18 @@ public class Post {
 
     public void setTags(int[] tags) {
         this.tags = tags;
+    }
+}
+
+class Post_Rendered {
+
+    private String rendered;
+
+    public String getRendered() {
+        return rendered;
+    }
+
+    public void setRendered(String rendered) {
+        this.rendered = rendered;
     }
 }
