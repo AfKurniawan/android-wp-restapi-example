@@ -15,6 +15,6 @@ public interface FtiarService {
     void getPostsAsync( Callback<List<Post>> callback); // Async
 
     @GET("/media/{media_id}")
-    void getMediaAsync(@Path("media_id") int media_id, Callback<Post> callback); // Async
+    void getMediaAsync(@Path("media_id") int media_id, Callback<Media> callback); // Async
 
 }
