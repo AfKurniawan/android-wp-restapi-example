@@ -2,6 +2,9 @@ package com.tiarf.wprestapitest;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -17,11 +20,23 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         FtiarService ftiarService = new RestAdapter.Builder()
                 .setEndpoint(FtiarService.ENDPOINT)
@@ -41,19 +56,16 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println(error);
             }
         });
+
     }
 
     public void showPosts(List<Post> posts) {
         Toast.makeText(this, "nombre d'articles : " + posts.size(), Toast.LENGTH_SHORT).show();
 
-        ArrayList<String> postsSlugs = new ArrayList<String>();
-        for (Post post : posts) {
-            postsSlugs.add( post.getSlug() ); //this adds an element to the list.
-        }
+        // specify an adapter (see also next example)
+        ArchivePostAdaptater adapter = new ArchivePostAdaptater( posts, getBaseContext() );
+        mRecyclerView.setAdapter(adapter);
 
-        ListView myList = (ListView) findViewById( R.id.listView );
-        ArrayAdapter adapter = new ArrayAdapter( this, android.R.layout.simple_list_item_1, postsSlugs );
-        myList.setAdapter(adapter);
     }
 
     @Override
