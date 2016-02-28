@@ -40,8 +40,6 @@ public class Post {
         return type;
     }
 
-
-
     public Object getTitle() {
         return title;
     }
