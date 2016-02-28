@@ -9,6 +9,7 @@ public class Post {
     private Post_Rendered content;
     private Post_Rendered excerpt;
     private int author;
+    private int featured_media;
     private int[] categories;
     private int[] tags;
 
@@ -74,6 +75,14 @@ public class Post {
 
     public void setAuthor(int author) {
         this.author = author;
+    }
+
+    public int getFeatured_media() {
+        return featured_media;
+    }
+
+    public void setFeatured_media(int featured_media) {
+        this.featured_media = featured_media;
     }
 
     public int[] getCategories() {
