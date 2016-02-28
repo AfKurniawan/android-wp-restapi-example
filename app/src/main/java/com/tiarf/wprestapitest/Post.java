@@ -2,7 +2,7 @@ package com.tiarf.wprestapitest;
 
 public class Post {
     private int id;
-    private String date;
+    private String date; // "yyyy-MM-dd'T'HH:mm:ss"
     private String slug;
     private String type;
     private Post_Rendered title;
