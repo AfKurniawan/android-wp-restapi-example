@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit.Callback;
@@ -20,23 +21,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
 
         FtiarService ftiarService = new RestAdapter.Builder()
                 .setEndpoint(FtiarService.ENDPOINT)
@@ -61,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void showPosts(List<Post> posts) {
         Toast.makeText(this, "nombre d'articles : " + posts.size(), Toast.LENGTH_SHORT).show();
+
+        RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        mRecyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getBaseContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
         ArchivePostAdaptater adapter = new ArchivePostAdaptater( posts, getBaseContext() );
