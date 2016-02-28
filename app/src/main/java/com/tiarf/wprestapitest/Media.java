@@ -8,6 +8,127 @@ public class Media {
     private Media_Rendered guid;
     private String slug;
     private String type;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Media_Rendered getGuid() {
+        return guid;
+    }
+
+    public void setGuid(Media_Rendered guid) {
+        this.guid = guid;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Media_Rendered getTitle() {
+        return title;
+    }
+
+    public void setTitle(Media_Rendered title) {
+        this.title = title;
+    }
+
+    public int getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(int author) {
+        this.author = author;
+    }
+
+    public String getAlt_text() {
+        return alt_text;
+    }
+
+    public void setAlt_text(String alt_text) {
+        this.alt_text = alt_text;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getMedia_type() {
+        return media_type;
+    }
+
+    public void setMedia_type(String media_type) {
+        this.media_type = media_type;
+    }
+
+    public String getMime_type() {
+        return mime_type;
+    }
+
+    public void setMime_type(String mime_type) {
+        this.mime_type = mime_type;
+    }
+
+    public Media_Details getMedia_details() {
+        return media_details;
+    }
+
+    public void setMedia_details(Media_Details media_details) {
+        this.media_details = media_details;
+    }
+
+    public String getSource_url() {
+        return source_url;
+    }
+
+    public void setSource_url(String source_url) {
+        this.source_url = source_url;
+    }
+
     private String link;
     private Media_Rendered title;
     private int author;
