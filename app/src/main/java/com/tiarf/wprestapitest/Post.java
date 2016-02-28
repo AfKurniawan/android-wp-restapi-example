@@ -1,5 +1,10 @@
 package com.tiarf.wprestapitest;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class Post {
     private int id;
     private String date; // "yyyy-MM-dd'T'HH:mm:ss"
@@ -27,6 +32,25 @@ public class Post {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    /**
+     * Just get a i18n formated date
+     * @param \String based_date
+     * @param \Locale lang
+     * @return String
+     */
+    public String getI18nFormatedDate ( String based_date, String format, Locale lang) {
+
+        // Format the post date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        try {
+            Date date = sdf.parse(based_date);
+            return new SimpleDateFormat( format, lang ).format(date);
+        } catch ( ParseException e ) {
+            return "error";
+        }
+
     }
 
     public String getSlug() {

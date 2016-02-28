@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -63,7 +67,10 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
     @Override
     public void onBindViewHolder( final ArchivePostsViewHolder holder, int i ) {
         holder.postTitle.setText( this.posts.get(i).getTitle().getRendered() );
-        holder.postDate.setText(this.posts.get(i).getDate());
+
+        // Format the post date
+        String postDate = this.posts.get(i).getDate();
+        holder.postDate.setText( this.posts.get(i).getI18nFormatedDate( postDate, "dd MMMM yyyy", Locale.FRANCE ) );
 
         final Context ctxt = this.context; // Save the context locally
 
