@@ -6,14 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,6 +29,7 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
         TextView postTitle;
         TextView postDate;
         ImageView postPhoto;
+        Button postReadMoreBtn;
 
         ArchivePostsViewHolder(View itemView) {
             super(itemView);
@@ -39,6 +37,7 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
             postTitle = (TextView)itemView.findViewById(R.id.post_title);
             postDate = (TextView)itemView.findViewById(R.id.post_date);
             postPhoto = (ImageView)itemView.findViewById(R.id.post_photo);
+            postReadMoreBtn = (Button)itemView.findViewById(R.id.readMoreBtn);
         }
     }
 
@@ -82,7 +81,6 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
                 // Use Picasso lib to display an Image based on an URL
                 Picasso.with(ctxt).load(media.getMedia_details().getSizes().getThumbnail().getSource_url())
                         .into(holder.postPhoto);
-
             }
 
             @Override
