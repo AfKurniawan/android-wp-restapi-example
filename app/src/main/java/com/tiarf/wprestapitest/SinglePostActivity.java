@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.tiarf.wprestapitest.Models.Media;
+import com.tiarf.wprestapitest.Models.Post;
+import com.tiarf.wprestapitest.Models.User;
+import com.tiarf.wprestapitest.Services.FtiarService;
 
 import java.util.Locale;
 
@@ -29,6 +34,7 @@ public class SinglePostActivity extends AppCompatActivity {
         final ImageView post_image = (ImageView) findViewById(R.id.post_photo);
         final TextView post_title = (TextView) findViewById(R.id.post_title);
         final TextView post_date = (TextView) findViewById(R.id.post_date);
+        final TextView post_author = (TextView) findViewById(R.id.post_author);
         final TextView post_content = (TextView) findViewById(R.id.post_content);
 
         Intent lastIntent = getIntent();
@@ -48,10 +54,25 @@ public class SinglePostActivity extends AppCompatActivity {
 
                 String title = post.getTitle().getRendered();
                 setTitle(title);
-                post_title.setText( title );
-                post_content.setText(post.getContent().getRendered());
+                post_title.setText(title);
+                String content = Html.fromHtml(post.getContent().getRendered()).toString();
+                post_content.setText(content);
 
                 post_date.setText(post.getI18nFormatedDate(post.getDate(), "dd MMMM yyyy", Locale.FRANCE));
+
+                ftiarService.getUserAsync(post.getAuthor(), new Callback<User>() {
+
+                    @Override
+                    public void success(User author, Response response) {
+                        // Use Picasso lib to display an Image based on an URL
+                        post_author.setText("Auteur : " + author.getName());
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        System.out.println(error);
+                    }
+                });
 
                 ftiarService.getMediaAsync(post.getFeatured_media(), new Callback<Media>() {
 
