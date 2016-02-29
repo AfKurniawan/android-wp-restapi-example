@@ -1,14 +1,11 @@
 package com.tiarf.wprestapitest;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Post implements Parcelable {
+public class Post {
     private int id;
     private String date; // "yyyy-MM-dd'T'HH:mm:ss"
     private String slug;
@@ -128,64 +125,9 @@ public class Post implements Parcelable {
         this.tags = tags;
     }
 
-    @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeInt(id);
-        dest.writeString(date);
-        dest.writeString(slug);
-        dest.writeString(type);
-        dest.writeInt(author);
-        dest.writeInt(featured_media);
-        dest.writeIntArray(categories);
-        dest.writeIntArray(tags);
-//
-//        dest.writeParcelable(title, flags);
-//        dest.writeParcelable(excerpt, flags);
-//        dest.writeParcelable(content, flags);
-    }
-
-    public static final Parcelable.Creator<Post> CREATOR = new Parcelable.Creator<Post>()
-    {
-        @Override
-        public Post createFromParcel(Parcel source)
-        {
-            return new Post(source);
-        }
-
-        @Override
-        public Post[] newArray(int size)
-        {
-            return new Post[size];
-        }
-    };
-
-    public Post(Parcel in) {
-        this.id = in.readInt();
-        this.date = in.readString();
-        this.slug = in.readString();
-        this.type = in.readString();
-        this.author = in.readInt();
-        this.featured_media = in.readInt();
-//        this.categories = in.readIntArray();
-//        this.tags = in.readIntArray();
-
-//        this.title = in.readParcelable( Post_Rendered.class.getClassLoader() );
-//        this.excerpt = in.readParcelable( Post_Rendered.class.getClassLoader() );
-//        this.content = in.readParcelable( Post_Rendered.class.getClassLoader() );
-        this.title = Post_Rendered.CREATOR.createFromParcel(in);
-        this.excerpt = Post_Rendered.CREATOR.createFromParcel(in);
-        this.content = Post_Rendered.CREATOR.createFromParcel(in);
-    }
 }
 
-class Post_Rendered implements Parcelable{
+class Post_Rendered {
 
     private String rendered;
 
@@ -197,36 +139,4 @@ class Post_Rendered implements Parcelable{
         this.rendered = rendered;
     }
 
-
-    @Override
-    public int describeContents()
-    {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeString(rendered);
-    }
-
-
-    public static final Parcelable.Creator<Post_Rendered> CREATOR = new Parcelable.Creator<Post_Rendered>()
-    {
-        @Override
-        public Post_Rendered createFromParcel(Parcel source)
-        {
-            return new Post_Rendered(source);
-        }
-
-        @Override
-        public Post_Rendered[] newArray(int size)
-        {
-            return new Post_Rendered[size];
-        }
-    };
-
-    public Post_Rendered(Parcel in) {
-        this.rendered = in.readString();
-    }
 }
