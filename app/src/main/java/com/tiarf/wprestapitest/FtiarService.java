@@ -12,7 +12,10 @@ public interface FtiarService {
     public static final String ENDPOINT = "http://ftiar.devbea.fr/wp-json/wp/v2";
 
     @GET("/posts")
-    void getPostsAsync( Callback<List<Post>> callback); // Async
+    void getPostsAsync( Callback<List<Post>> callback);
+
+    @GET("/posts/{post_id}")
+    void getPostAsync(@Path("post_id") int post_id, Callback<Post> callback); // Async
 
     @GET("/media/{media_id}")
     void getMediaAsync(@Path("media_id") int media_id, Callback<Media> callback); // Async
