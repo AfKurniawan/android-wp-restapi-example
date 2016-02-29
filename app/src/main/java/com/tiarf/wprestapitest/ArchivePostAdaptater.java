@@ -1,6 +1,8 @@
 package com.tiarf.wprestapitest;
 
 import android.content.Context;
+import android.content.Intent;
+import android.sax.StartElementListener;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import java.util.List;
@@ -65,16 +68,17 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder( final ArchivePostsViewHolder holder, int i ) {
-        holder.postTitle.setText( this.posts.get(i).getTitle().getRendered() );
+        final Post currentPost = this.posts.get(i);
+        holder.postTitle.setText( currentPost.getTitle().getRendered() );
 
         // Format the post date
-        String postDate = this.posts.get(i).getDate();
-        holder.postDate.setText( this.posts.get(i).getI18nFormatedDate( postDate, "dd MMMM yyyy", Locale.FRANCE ) );
+        String postDate = currentPost.getDate();
+        holder.postDate.setText( currentPost.getI18nFormatedDate(postDate, "dd MMMM yyyy", Locale.FRANCE) );
 
         final Context ctxt = this.context; // Save the context locally
 
         // Get Media Object with a call to the REST API
-        this.ftiarService.getMediaAsync(this.posts.get(i).getFeatured_media(), new Callback<Media>() {
+        this.ftiarService.getMediaAsync(currentPost.getFeatured_media(), new Callback<Media>() {
 
             @Override
             public void success(Media media, Response response) {
@@ -86,6 +90,19 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
             @Override
             public void failure(RetrofitError error) {
                 System.out.println( error );
+            }
+        });
+
+        // Handle read more click
+        holder.postReadMoreBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText( ctxt, "Bonne lecture", Toast.LENGTH_SHORT).show();
+
+                // Launch a single post activity
+                Intent intentSinglePost = new Intent( ctxt, SinglePostActivity.class );
+                intentSinglePost.putExtra("post_id", currentPost.getId() );
+                intentSinglePost.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                ctxt.startActivity(intentSinglePost);
             }
         });
     }
