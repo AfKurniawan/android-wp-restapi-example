@@ -2,7 +2,6 @@ package com.tiarf.wprestapitest;
 
 import android.content.Context;
 import android.content.Intent;
-import android.sax.StartElementListener;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.tiarf.wprestapitest.Models.Media;
+import com.tiarf.wprestapitest.Models.Post;
+import com.tiarf.wprestapitest.Services.FtiarService;
+
 import java.util.List;
 import java.util.Locale;
 
