@@ -1,13 +1,9 @@
 package com.tiarf.wprestapitest;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +29,7 @@ public class SinglePostActivity extends AppCompatActivity {
         final ImageView post_image = (ImageView) findViewById(R.id.post_photo);
         final TextView post_title = (TextView) findViewById(R.id.post_title);
         final TextView post_date = (TextView) findViewById(R.id.post_date);
+        final TextView post_content = (TextView) findViewById(R.id.post_content);
 
         Intent lastIntent = getIntent();
         int post_id = lastIntent.getIntExtra("post_id", 0);
@@ -52,6 +49,7 @@ public class SinglePostActivity extends AppCompatActivity {
                 String title = post.getTitle().getRendered();
                 setTitle(title);
                 post_title.setText( title );
+                post_content.setText(post.getContent().getRendered());
 
                 post_date.setText(post.getI18nFormatedDate(post.getDate(), "dd MMMM yyyy", Locale.FRANCE));
 
