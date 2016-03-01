@@ -9,6 +9,7 @@ public class Post {
     private int id;
     private String date; // "yyyy-MM-dd'T'HH:mm:ss"
     private String slug;
+    private String link;
     private String type;
     private Post_Rendered guid;
     private Post_Rendered title;
@@ -60,6 +61,14 @@ public class Post {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getType() {
