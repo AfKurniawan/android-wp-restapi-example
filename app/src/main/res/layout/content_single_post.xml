@@ -13,45 +13,50 @@
     tools:context="com.tiarf.wprestapitest.SinglePostActivity"
     tools:showIn="@layout/activity_single_post">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/post_title"
-            android:layout_below="@+id/post_photo"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textIsSelectable="true"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/post_date"
-            android:layout_below="@+id/post_title"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/post_author"
-            android:layout_below="@+id/post_date"
-            />
-
-
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/post_author"
-        android:layout_marginTop="16dp"
         android:scrollbars="none"
         android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:id="@+id/post_content"
-            android:textIsSelectable="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_title"
+                android:layout_below="@+id/post_photo"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textIsSelectable="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_date"
+                android:layout_below="@+id/post_title"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/post_author"
+                android:layout_below="@+id/post_date"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/post_author"
+                android:layout_marginTop="16dp"
+                android:textSize="18sp"
+                android:id="@+id/post_content"
+                android:textIsSelectable="true"/>
+
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
 
