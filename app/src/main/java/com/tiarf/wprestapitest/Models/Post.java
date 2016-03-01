@@ -10,6 +10,7 @@ public class Post {
     private String date; // "yyyy-MM-dd'T'HH:mm:ss"
     private String slug;
     private String type;
+    private Post_Rendered guid;
     private Post_Rendered title;
     private Post_Rendered content;
     private Post_Rendered excerpt;
@@ -67,6 +68,14 @@ public class Post {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Post_Rendered getGuid() {
+        return guid;
+    }
+
+    public void setGuid(Post_Rendered guid) {
+        this.guid = guid;
     }
 
     public Post_Rendered getTitle() {
