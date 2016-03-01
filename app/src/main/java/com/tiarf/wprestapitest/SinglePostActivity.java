@@ -2,9 +2,13 @@ package com.tiarf.wprestapitest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +26,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class SinglePostActivity extends AppCompatActivity {
+
+    private ShareActionProvider mShareActionProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,10 @@ public class SinglePostActivity extends AppCompatActivity {
                 String title = post.getTitle().getRendered();
                 setTitle(title);
                 post_title.setText(title);
+
+                // Create share provider intent
+                setShareIntent(createShareIntent(title, post.getLink() ));
+
                 String content = Html.fromHtml(post.getContent().getRendered()).toString();
                 post_content.setText(content);
 
@@ -97,6 +107,52 @@ public class SinglePostActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_single_post, menu);
+
+        // Locate MenuItem with ShareActionProvider
+        MenuItem item = menu.findItem(R.id.menu_item_share);
+
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(item);
+
+        // Return true to display menu
+        return true;
+    }
+
+    // Call to update the share intent
+    private void setShareIntent(Intent shareIntent) {
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
+    private Intent createShareIntent( String post_title, String post_url ) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+
+        String sharedText = "Lisez l'article \"" + post_title + "\" à l'adresse suivante : " + post_url;
+        shareIntent.putExtra(Intent.EXTRA_TEXT,
+                sharedText);
+        return shareIntent;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
