@@ -2,7 +2,9 @@ package com.tiarf.wprestapitest;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
@@ -37,28 +39,36 @@ public class SinglePostActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ViewCompat.setTransitionName(findViewById(R.id.appBarLayout), "Name");
+
+        // get view widgets
         final ImageView post_image = (ImageView) findViewById(R.id.post_photo);
         final TextView post_title = (TextView) findViewById(R.id.post_title);
         final TextView post_date = (TextView) findViewById(R.id.post_date);
         final TextView post_author = (TextView) findViewById(R.id.post_author);
         final TextView post_content = (TextView) findViewById(R.id.post_content);
 
+        // Get the post_id
         Intent lastIntent = getIntent();
         int post_id = lastIntent.getIntExtra("post_id", 0);
 
-        // Get Media Object with a call to the REST API
         final FtiarService ftiarService = new RestAdapter.Builder()
                 .setEndpoint(FtiarService.ENDPOINT)
                 .build()
                 .create(FtiarService.class);
 
+        // Retreive the post by passing the post_id
         ftiarService.getPostAsync(post_id, new Callback<Post>() {
 
             @Override
             public void success(Post post, Response response) {
-                // Use Picasso lib to display an Image based on an URL
 
                 String title = post.getTitle().getRendered();
+
+                CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+                collapsingToolbarLayout.setTitle(title); // Set Toolbar title : Post title
+                collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
                 setTitle(title);
                 post_title.setText(title);
 
