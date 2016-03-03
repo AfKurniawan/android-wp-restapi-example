@@ -86,7 +86,7 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
             @Override
             public void success(Media media, Response response) {
                 // Use Picasso lib to display an Image based on an URL
-                Picasso.with(ctxt).load(media.getMedia_details().getSizes().getThumbnail().getSource_url())
+                Picasso.with(ctxt).load(media.getMedia_details().getSizes().getLarge().getSource_url())
                         .into(holder.postPhoto);
             }
 

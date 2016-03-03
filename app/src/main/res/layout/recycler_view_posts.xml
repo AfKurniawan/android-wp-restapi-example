@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent" android:layout_height="match_parent"
-              android:padding="16dp"
+              android:paddingTop="16dp"
+              android:paddingBottom="16dp"
     >
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/post_card"
+        style="@style/MyCardViewStyle"
         >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
             >
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/post_photo"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="16dp"
                 android:contentDescription="Photo à la une de l'article"
-                />
+                android:background="@color/colorPrimary"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/post_title"
-                android:layout_toRightOf="@+id/post_photo"
-                android:layout_alignParentTop="true"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:textIsSelectable="true"/>
+                android:layout_below="@id/post_photo"
+                android:padding="16dp"
+                >
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/post_date"
-                android:layout_toRightOf="@+id/post_photo"
-                android:layout_below="@+id/post_title"
-                />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/post_title"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorWhite"
+                    android:textIsSelectable="true"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/post_photo"
-                android:layout_below="@+id/post_date"
-                android:text="Lire l'article"
-                android:id="@+id/readMoreBtn"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/post_date"
+                    android:textColor="@color/colorWhite"
+                    android:layout_below="@+id/post_title"
+                    />
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/post_date"
+                    android:text="Lire l'article"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorPrimary"
+                    android:id="@+id/readMoreBtn"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
