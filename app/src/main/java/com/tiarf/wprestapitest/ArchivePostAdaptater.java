@@ -1,7 +1,10 @@
 package com.tiarf.wprestapitest;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -71,14 +74,45 @@ public class ArchivePostAdaptater extends RecyclerView.Adapter<ArchivePostAdapta
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder( final ArchivePostsViewHolder holder, int i ) {
+        final Context ctxt = this.context; // Save the context locally
         final Post currentPost = this.posts.get(i);
+
+        if ( i == 0 ) {
+            // Restore preferences
+            SharedPreferences settings = ctxt.getSharedPreferences("myShare", ctxt.MODE_PRIVATE);
+            int last_post_id = settings.getInt("last_post_id", 0);
+
+            if ( last_post_id != currentPost.getId() ) {
+                // We need an Editor object to make preference changes.
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putInt("last_post_id", currentPost.getId());
+
+                // Commit the edits!
+                editor.apply();
+
+                if ( last_post_id != 0 ) {
+                    // Push notification goes here
+                    NotificationCompat.Builder mBuilder =
+                        new NotificationCompat.Builder(context)
+                            .setContentTitle("Un nouvel article est disponible")
+                            .setContentText(currentPost.getTitle().getRendered());
+                    // Sets an ID for the notification
+                    int mNotificationId = 001;
+                    // Gets an instance of the NotificationManager service
+                    NotificationManager mNotifyMgr =
+                            (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+                    // Builds the notification and issues it.
+                    mNotifyMgr.notify(mNotificationId, mBuilder.build());
+                }
+
+            }
+        }
+
         holder.postTitle.setText( currentPost.getTitle().getRendered() );
 
         // Format the post date
         String postDate = currentPost.getDate();
         holder.postDate.setText( currentPost.getI18nFormatedDate(postDate, "dd MMMM yyyy", Locale.FRANCE) );
-
-        final Context ctxt = this.context; // Save the context locally
 
         // Get Media Object with a call to the REST API
         this.ftiarService.getMediaAsync(currentPost.getFeatured_media(), new Callback<Media>() {
