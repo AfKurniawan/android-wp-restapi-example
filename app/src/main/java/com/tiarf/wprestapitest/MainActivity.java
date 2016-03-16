@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Do BackgroundTask job to send a notification if there is a new post
+        mServiceIntent = new Intent(getActivity(), NotificationService.class);
+        startService(mServiceIntent);
+
+        // Prepare API REST Calls
         FtiarService ftiarService = new RestAdapter.Builder()
                 .setEndpoint(FtiarService.ENDPOINT)
                 .build()

@@ -29,6 +29,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.tiarf.wprestapitest.MainActivity"/>
         </activity>
+
+        <service android:name=".NotificationService" />
+
     </application>
 
 </manifest>
